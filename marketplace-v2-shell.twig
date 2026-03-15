@@ -1,868 +1,229 @@
-/* ══════════════════════════════════════════
-   SERPPRO PUBLISHER MARKETPLACE v2
-   Premium design — scoped to #mp2
-══════════════════════════════════════════ */
-#mp2 *, #mp2 *::before, #mp2 *::after { box-sizing: border-box; margin: 0; padding: 0; }
-#mp2 {
-  --accent:    #2563eb;
-  --accent-lt: #eff6ff;
-  --accent-dk: #1d4ed8;
-  --green:     #16a34a;
-  --green-lt:  #dcfce7;
-  --amber:     #d97706;
-  --amber-lt:  #fef3c7;
-  --red:       #dc2626;
-  --red-lt:    #fee2e2;
-  --c50:  #f8fafc;
-  --c100: #f1f5f9;
-  --c200: #e2e8f0;
-  --c300: #cbd5e1;
-  --c400: #94a3b8;
-  --c500: #64748b;
-  --c600: #475569;
-  --c700: #334155;
-  --c800: #1e293b;
-  --c900: #0f172a;
-  --border: #e2e8f0;
-  --r6: 6px; --r8: 8px; --r12: 12px;
-  --sh1: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
-  --sh2: 0 4px 12px rgba(0,0,0,.09);
-  --sh3: 0 8px 32px rgba(0,0,0,.13);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 13px;
-  color: var(--c900);
-  line-height: 1.4;
-}
+{% extends "portal.layouts.main" %}
+{% block content %}
 
-/* ── Header ── */
-#mp2 .mp2-hdr {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--c200);
-}
-#mp2 .mp2-hdr h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--c900);
-  line-height: 1.2;
-  letter-spacing: -.02em;
-}
-#mp2 .mp2-hdr-sub {
-  font-size: 13px;
-  color: var(--c500);
-  margin-top: 4px;
-}
-#mp2 .mp2-hdr-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-#mp2 .mp2-hdr-stats {
-  display: flex;
-  gap: 20px;
-}
-#mp2 .mp2-stat { text-align: right; }
-#mp2 .mp2-stat-val {
-  font-family: 'DM Mono', 'Courier New', monospace;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--c900);
-  line-height: 1;
-}
-#mp2 .mp2-stat-lbl {
-  font-size: 10px;
-  color: var(--c400);
-  margin-top: 2px;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  font-weight: 500;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pbabakhanian/serppro-marketplace@main/marketplace-v2.css">
 
-/* ── Header cart btn ── */
-#mp2 #mp2-hdr-cart {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  height: 38px;
-  padding: 0 16px;
-  background: white;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r8);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  color: var(--c700);
-  box-shadow: var(--sh1);
-  transition: all .15s;
-  white-space: nowrap;
-}
-#mp2 #mp2-hdr-cart:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-lt);
-}
-#mp2 #mp2-hdr-cart-badge {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  border-radius: 9px;
-  background: var(--red);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  font-family: 'DM Mono', monospace;
-}
+<div id="mp2">
 
-/* ── Progress bar ── */
-#mp2 .mp2-progress {
-  height: 3px;
-  background: var(--c100);
-  border-radius: 2px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-#mp2 .mp2-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), #7c3aed);
-  border-radius: 2px;
-  transition: width .5s ease;
-  width: 0%;
-}
+  <!-- Header -->
+  <div class="mp2-hdr">
+    <div>
+      <h1>Publisher Marketplace</h1>
+      <div class="mp2-hdr-sub">Private inventory &middot; 9,000+ vetted sites &middot; Guaranteed placements</div>
+    </div>
+    <div class="mp2-hdr-right">
+      <div class="mp2-hdr-stats">
+        <div class="mp2-stat">
+          <div class="mp2-stat-val" id="mp2-cnt-loaded">0</div>
+          <div class="mp2-stat-lbl">Sites loaded</div>
+        </div>
+        <div class="mp2-stat">
+          <div class="mp2-stat-val" id="mp2-cnt-match">0</div>
+          <div class="mp2-stat-lbl">Matching</div>
+        </div>
+      </div>
+      <button id="mp2-hdr-cart">Cart <span id="mp2-hdr-cart-badge"></span></button>
+    </div>
+  </div>
 
-/* ══════════════════════════════════════════
-   FILTER BAR — 2 rows
-══════════════════════════════════════════ */
-#mp2 .mp2-filters {
-  background: white;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r12);
-  padding: 16px 18px;
-  margin-bottom: 14px;
-  box-shadow: var(--sh1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-#mp2 .mp2-filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-end;
-}
-#mp2 .mp2-filter-row + .mp2-filter-row {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--c100);
-}
-#mp2 .mp2-fg {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-#mp2 .mp2-flabel {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--c500);
-  white-space: nowrap;
-}
-#mp2 .mp2-flabel small {
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--c400);
-  font-size: 10px;
-}
-#mp2 .mp2-input {
-  height: 34px;
-  padding: 0 11px;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r6);
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--c900);
-  background: var(--c50);
-  outline: none;
-  transition: border-color .15s, box-shadow .15s, background .15s;
-}
-#mp2 .mp2-input:focus {
-  border-color: var(--accent);
-  background: white;
-  box-shadow: 0 0 0 3px var(--accent-lt);
-}
-#mp2 .mp2-input::placeholder { color: var(--c400); }
-#mp2 .mp2-rpair { display: flex; align-items: center; gap: 5px; }
-#mp2 .mp2-rpair .mp2-input { width: 70px; text-align: center; }
-#mp2 .mp2-rsep { font-size: 12px; color: var(--c400); font-weight: 500; }
-#mp2 .mp2-select {
-  height: 34px;
-  padding: 0 10px;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r6);
-  font-size: 13px;
-  font-family: inherit;
-  background: var(--c50);
-  cursor: pointer;
-  color: var(--c900);
-  outline: none;
-  min-width: 120px;
-  transition: border-color .15s;
-}
-#mp2 .mp2-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-lt); }
+  <!-- Progress -->
+  <div class="mp2-progress" id="mp2-progress">
+    <div class="mp2-progress-fill" id="mp2-prog-fill"></div>
+  </div>
 
-/* Topic tag input */
-#mp2 .mp2-topic-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px;
-  min-height: 34px;
-  padding: 3px 10px;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r6);
-  background: var(--c50);
-  cursor: text;
-  width: 240px;
-  transition: border-color .15s, box-shadow .15s;
-}
-#mp2 .mp2-topic-wrap:focus-within {
-  border-color: var(--accent);
-  background: white;
-  box-shadow: 0 0 0 3px var(--accent-lt);
-}
-#mp2 #mp2-tag-pills { display: contents; }
-#mp2 .mp2-tpill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px 2px 10px;
-  background: var(--accent);
-  color: white;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-  line-height: 1.6;
-}
-#mp2 .mp2-tpill-rm {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(255,255,255,.7);
-  font-size: 14px;
-  line-height: 1;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-#mp2 .mp2-tpill-rm:hover { color: white; }
-#mp2 #mp2-topics {
-  border: none;
-  outline: none;
-  font-size: 12px;
-  font-family: inherit;
-  min-width: 80px;
-  flex: 1;
-  padding: 2px 0;
-  background: transparent;
-  color: var(--c900);
-}
-#mp2 #mp2-topics::placeholder { color: var(--c400); }
+  <!-- Filters -->
+  <div class="mp2-filters" id="mp2-filters">
 
-/* Toggle */
-#mp2 .mp2-trow { display: flex; align-items: center; gap: 8px; height: 34px; }
-#mp2 .mp2-tog { position: relative; width: 36px; height: 20px; flex-shrink: 0; cursor: pointer; }
-#mp2 .mp2-tog input { opacity: 0; width: 0; height: 0; position: absolute; }
-#mp2 .mp2-tog-track {
-  position: absolute; inset: 0;
-  background: var(--c200); border-radius: 10px;
-  transition: background .2s;
-}
-#mp2 .mp2-tog input:checked + .mp2-tog-track { background: var(--accent); }
-#mp2 .mp2-tog-track::after {
-  content: '';
-  position: absolute; top: 2px; left: 2px;
-  width: 16px; height: 16px;
-  border-radius: 50%; background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,.2);
-  transition: left .2s;
-}
-#mp2 .mp2-tog input:checked + .mp2-tog-track::after { left: 18px; }
-#mp2 .mp2-tlbl { font-size: 12px; color: var(--c700); cursor: pointer; white-space: nowrap; }
+    <!-- Row 1 -->
+    <div class="mp2-filter-row">
+      <div class="mp2-fg" style="flex:1;min-width:160px;max-width:220px;">
+        <div class="mp2-flabel">Search Domain</div>
+        <input class="mp2-input" id="mp2-q" type="search" placeholder="e.g. healthline.com" style="width:100%">
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">DR Range</div>
+        <div class="mp2-rpair">
+          <input class="mp2-input" id="mp2-dr0" type="number" placeholder="0" min="0" max="100">
+          <span class="mp2-rsep">to</span>
+          <input class="mp2-input" id="mp2-dr1" type="number" placeholder="100" min="0" max="100">
+        </div>
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Traffic</div>
+        <div class="mp2-rpair">
+          <input class="mp2-input" id="mp2-tr0" type="number" placeholder="0" min="0" style="width:76px">
+          <span class="mp2-rsep">to</span>
+          <input class="mp2-input" id="mp2-tr1" type="number" placeholder="Max" min="0" style="width:76px">
+        </div>
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Price ($)</div>
+        <div class="mp2-rpair">
+          <input class="mp2-input" id="mp2-pr0" type="number" placeholder="0" min="0" style="width:70px">
+          <span class="mp2-rsep">to</span>
+          <input class="mp2-input" id="mp2-pr1" type="number" placeholder="Max" min="0" style="width:70px">
+        </div>
+      </div>
+      <div class="mp2-fg" style="flex:1;min-width:200px;">
+        <div class="mp2-flabel">Niches / Topics <small>(Enter or , to add tag)</small></div>
+        <div class="mp2-topic-wrap" onclick="document.getElementById('mp2-topics').focus()">
+          <div id="mp2-tag-pills"></div>
+          <input id="mp2-topics" type="text" placeholder="health, finance, tech...">
+        </div>
+      </div>
+    </div>
 
-#mp2 .mp2-clear-btn {
-  height: 34px;
-  padding: 0 14px;
-  border: 1.5px solid #fecaca;
-  border-radius: var(--r6);
-  background: white;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--red);
-  font-family: inherit;
-  transition: all .15s;
-  white-space: nowrap;
-}
-#mp2 .mp2-clear-btn:hover { background: var(--red-lt); border-color: var(--red); }
+    <!-- Row 2 -->
+    <div class="mp2-filter-row">
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Do-Follow</div>
+        <select class="mp2-select" id="mp2-df">
+          <option value="">All</option>
+          <option value="Yes">Yes only</option>
+          <option value="No">No only</option>
+        </select>
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Language</div>
+        <select class="mp2-select" id="mp2-lang">
+          <option value="">All Languages</option>
+          <option>English</option><option>German</option><option>French</option><option>Spanish</option>
+          <option>Italian</option><option>Dutch</option><option>Polish</option><option>Portuguese</option>
+          <option>Russian</option><option>Swedish</option><option>Norwegian</option><option>Danish</option>
+          <option>Finnish</option><option>Greek</option><option>Romanian</option><option>Turkish</option>
+          <option>Japanese</option><option>Chinese</option><option>Korean</option><option>Arabic</option>
+          <option>Indonesian</option><option>Vietnamese</option><option>Ukrainian</option>
+        </select>
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Country</div>
+        <select class="mp2-select" id="mp2-country">
+          <option value="">All Countries</option>
+          <option>United States</option><option>United Kingdom</option><option>Australia</option>
+          <option>Canada</option><option>Germany</option><option>France</option><option>Spain</option>
+          <option>Italy</option><option>Netherlands</option><option>Poland</option><option>Brazil</option>
+          <option>Russia</option><option>Sweden</option><option>Norway</option><option>Denmark</option>
+          <option>Finland</option><option>Greece</option><option>Romania</option><option>Turkey</option>
+          <option>Japan</option><option>China</option><option>South Korea</option><option>India</option>
+          <option>South Africa</option><option>Nigeria</option><option>Singapore</option>
+        </select>
+      </div>
+      <div class="mp2-fg">
+        <div class="mp2-flabel">Sensitive Niches</div>
+        <div class="mp2-trow">
+          <label class="mp2-tog">
+            <input type="checkbox" id="mp2-hide-sens">
+            <span class="mp2-tog-track"></span>
+          </label>
+          <span class="mp2-tlbl">Hide adult and gambling</span>
+        </div>
+      </div>
+      <div class="mp2-fg" style="margin-left:auto;">
+        <div class="mp2-flabel">&nbsp;</div>
+        <button class="mp2-clear-btn" id="mp2-clear">Clear all filters</button>
+      </div>
+    </div>
 
-/* ── Presets ── */
-#mp2 .mp2-presets-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-  min-height: 28px;
-}
-#mp2 .mp2-presets-lbl {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--c400);
-  white-space: nowrap;
-}
-#mp2 .mp2-preset-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 11px;
-  border-radius: 20px;
-  border: 1px solid var(--c200);
-  background: white;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--c700);
-  transition: all .15s;
-  font-family: inherit;
-  box-shadow: var(--sh1);
-}
-#mp2 .mp2-preset-chip:hover { border-color: var(--accent); color: var(--accent); }
-#mp2 .mp2-preset-chip .mp2-del { font-size: 11px; opacity: .5; }
-#mp2 .mp2-preset-chip .mp2-del:hover { opacity: 1; color: var(--red); }
-#mp2 .mp2-save-btn {
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1.5px dashed var(--c300);
-  background: transparent;
-  font-size: 12px;
-  cursor: pointer;
-  color: var(--c500);
-  font-family: inherit;
-  transition: all .15s;
-}
-#mp2 .mp2-save-btn:hover { border-color: var(--accent); color: var(--accent); border-style: solid; }
+  </div>
 
-/* ── Table controls ── */
-#mp2 .mp2-tcontrols {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-#mp2 .mp2-rcount { font-size: 12px; color: var(--c500); }
-#mp2 .mp2-rcount b { color: var(--c900); font-family: 'DM Mono', monospace; font-weight: 600; }
-#mp2 .mp2-tright { display: flex; align-items: center; gap: 8px; }
-#mp2 .mp2-rpp {
-  height: 32px;
-  padding: 0 10px;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r6);
-  font-size: 12px;
-  font-family: inherit;
-  background: white;
-  cursor: pointer;
-  color: var(--c700);
-}
-#mp2 #mp2-colwrap { position: relative; }
-#mp2 .mp2-colbtn {
-  height: 32px;
-  padding: 0 13px;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r6);
-  background: white;
-  font-size: 12px;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--c700);
-  transition: all .15s;
-}
-#mp2 .mp2-colbtn:hover { border-color: var(--accent); color: var(--accent); }
-#mp2 .mp2-colpanel {
-  position: absolute; right: 0; top: 36px;
-  background: white; border: 1.5px solid var(--c200);
-  border-radius: var(--r8); padding: 8px;
-  box-shadow: var(--sh3); z-index: 200;
-  min-width: 190px; display: none;
-}
-#mp2 .mp2-colpanel.open { display: block; }
-#mp2 .mp2-colpanel label {
-  display: flex; align-items: center; gap: 9px;
-  padding: 7px 9px; font-size: 13px;
-  cursor: pointer; border-radius: 5px; color: var(--c700);
-  transition: background .1s;
-}
-#mp2 .mp2-colpanel label:hover { background: var(--c50); }
-#mp2 .mp2-colpanel input[type=checkbox] { accent-color: var(--accent); width: 14px; height: 14px; }
+  <!-- Presets -->
+  <div class="mp2-presets-row">
+    <span class="mp2-presets-lbl">Saved filters:</span>
+    <div id="mp2-preset-list"></div>
+    <button class="mp2-save-btn" id="mp2-save-preset">+ Save current</button>
+  </div>
 
-/* ══════════════════════════════════════════
-   TABLE
-══════════════════════════════════════════ */
-#mp2 .mp2-twrap {
-  overflow-x: auto;
-  border: 1.5px solid var(--c200);
-  border-radius: var(--r12);
-  background: white;
-  box-shadow: var(--sh1);
-}
-#mp2 table { width: 100%; border-collapse: collapse; font-size: 13px; }
-#mp2 thead { position: sticky; top: 0; z-index: 10; }
-#mp2 thead th {
-  padding: 10px 13px;
-  text-align: left;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--c500);
-  background: var(--c50);
-  border-bottom: 1.5px solid var(--c200);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-  transition: color .15s;
-}
-#mp2 thead th:first-child { border-radius: var(--r12) 0 0 0; }
-#mp2 thead th:last-child  { border-radius: 0 var(--r12) 0 0; }
-#mp2 thead th:hover { color: var(--c800); }
-#mp2 thead th.mp2-sorted { color: var(--accent); }
-#mp2 thead th.mp2-nosort { cursor: default; }
-#mp2 .mp2-sico { margin-left: 3px; font-size: 8px; opacity: .35; }
-#mp2 thead th.mp2-sorted .mp2-sico { opacity: 1; }
+  <!-- Table controls -->
+  <div class="mp2-tcontrols">
+    <div class="mp2-rcount">Showing <b id="mp2-from">0</b> to <b id="mp2-to">0</b> of <b id="mp2-tot">0</b> sites</div>
+    <div class="mp2-tright">
+      <select class="mp2-rpp" id="mp2-rpp">
+        <option value="25">25 per page</option>
+        <option value="50">50 per page</option>
+        <option value="100">100 per page</option>
+      </select>
+      <div id="mp2-colwrap">
+        <button class="mp2-colbtn" id="mp2-colbtn">Columns</button>
+        <div class="mp2-colpanel" id="mp2-colpanel">
+          <label><input type="checkbox" data-col="dr" checked> DR</label>
+          <label><input type="checkbox" data-col="da" checked> DA</label>
+          <label><input type="checkbox" data-col="traffic" checked> Traffic + Trend</label>
+          <label><input type="checkbox" data-col="spark" checked> Sparkline</label>
+          <label><input type="checkbox" data-col="country" checked> Country</label>
+          <label><input type="checkbox" data-col="lang" checked> Language</label>
+          <label><input type="checkbox" data-col="topics" checked> Topics</label>
+          <label><input type="checkbox" data-col="df" checked> Do-Follow</label>
+          <label><input type="checkbox" data-col="price" checked> Price</label>
+        </div>
+      </div>
+    </div>
+  </div>
 
-#mp2 tbody tr.mp2-row {
-  border-bottom: 1px solid var(--c100);
-  transition: background .08s;
-}
-#mp2 tbody tr.mp2-row:last-child { border-bottom: none; }
-#mp2 tbody tr.mp2-row:hover { background: #fafbff; }
-#mp2 tbody tr.mp2-row.mp2-blocked { opacity: .2; }
-#mp2 tbody tr.mp2-row.mp2-expanded { background: var(--accent-lt); }
-#mp2 td { padding: 9px 13px; vertical-align: middle; }
+  <!-- Table -->
+  <div class="mp2-twrap">
+    <table>
+      <thead>
+        <tr id="mp2-head">
+          <th class="mp2-nosort" style="width:46px;"></th>
+          <th data-sort="name">Domain <span class="mp2-sico">updown</span></th>
+          <th data-sort="dr"      class="c-dr">DR <span class="mp2-sico">updown</span></th>
+          <th data-sort="da"      class="c-da">DA <span class="mp2-sico">updown</span></th>
+          <th data-sort="tfc"     class="c-traffic">Traffic / Trend <span class="mp2-sico">updown</span></th>
+          <th class="mp2-nosort   c-spark">Chart</th>
+          <th data-sort="country" class="c-country">Country <span class="mp2-sico">updown</span></th>
+          <th data-sort="lang"    class="c-lang">Language <span class="mp2-sico">updown</span></th>
+          <th class="mp2-nosort   c-topics">Topics</th>
+          <th data-sort="df"      class="c-df">DF <span class="mp2-sico">updown</span></th>
+          <th data-sort="price"   class="c-price mp2-sorted">Price <span class="mp2-sico">down</span></th>
+          <th class="mp2-nosort" style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody id="mp2-body">
+        <tr><td colspan="12" class="mp2-empty">
+          <div class="mp2-empty-ico">&#x23F3;</div>
+          <div class="mp2-empty-txt">Loading publisher inventory...</div>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
 
-/* ── Action col ── */
-#mp2 .mp2-acts { display: flex; flex-direction: column; gap: 4px; }
-#mp2 .mp2-abtn {
-  background: none; border: none; cursor: pointer;
-  padding: 2px 4px; font-size: 14px; line-height: 1;
-  opacity: .15; border-radius: 4px;
-  transition: opacity .15s, color .15s;
-}
-#mp2 .mp2-abtn:hover.mp2-fav,
-#mp2 .mp2-abtn.mp2-fav.on { opacity: 1; color: #f59e0b; }
-#mp2 .mp2-abtn:hover.mp2-blk,
-#mp2 .mp2-abtn.mp2-blk.on { opacity: 1; color: var(--red); }
+  <!-- Pagination -->
+  <div class="mp2-pager" id="mp2-pager"></div>
 
-/* ── Domain col ── */
-#mp2 .mp2-dom {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-width: 180px;
-}
-#mp2 .mp2-fav-ico {
-  width: 18px; height: 18px;
-  border-radius: 4px; flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
-}
-#mp2 .mp2-dom-info { display: flex; flex-direction: column; gap: 2px; }
-#mp2 .mp2-dname { font-weight: 600; color: var(--c900); font-size: 13px; }
-#mp2 .mp2-dlink {
-  font-size: 10px; color: var(--accent);
-  text-decoration: none; opacity: 0;
-  transition: opacity .15s;
-  font-weight: 500;
-}
-#mp2 tbody tr:hover .mp2-dlink { opacity: 1; }
-#mp2 .mp2-expand-btn {
-  margin-left: auto;
-  background: none;
-  border: 1.5px solid var(--c200);
-  cursor: pointer;
-  color: var(--c400);
-  font-size: 10px;
-  padding: 3px 7px;
-  border-radius: 5px;
-  flex-shrink: 0;
-  transition: all .15s;
-  font-family: inherit;
-}
-#mp2 .mp2-expand-btn:hover { border-color: var(--accent); color: var(--accent); }
+  <!-- AI Link Matcher -->
+  <div class="mp2-matcher-section">
+    <div class="mp2-matcher-hdr">
+      <span class="mp2-matcher-badge">AI Powered</span>
+      <div class="mp2-matcher-title">AI Link Matcher</div>
+    </div>
+    <div class="mp2-matcher-sub">Paste your URL and Claude will analyze your site's topic, industry, and authority profile -- then instantly match you with the most relevant publishers from our full inventory of 9,000+ sites.</div>
+    <div class="mp2-matcher-input-row">
+      <input class="mp2-matcher-inp" id="mp2-matcher-url" type="url" placeholder="https://yoursite.com/page-you-want-links-to">
+      <button class="mp2-matcher-btn" id="mp2-matcher-btn">Find Matching Sites</button>
+    </div>
+    <div id="mp2-matcher-out"></div>
+  </div>
 
-/* ── DR / DA badges ── */
-#mp2 .mp2-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 3px 8px; border-radius: 20px;
-  font-size: 12px; font-weight: 700;
-  font-family: 'DM Mono', monospace;
-  min-width: 36px;
-}
-#mp2 .mp2-hi  { background: #dcfce7; color: #15803d; }
-#mp2 .mp2-mid { background: #fef9c3; color: #854d0e; }
-#mp2 .mp2-lo  { background: #fee2e2; color: #991b1b; }
-#mp2 .mp2-na  { background: var(--c100); color: var(--c400); }
+</div>
 
-/* ── Traffic cell ── */
-#mp2 .mp2-tfc {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 140px;
-}
-#mp2 .mp2-tfc-left { display: flex; flex-direction: column; gap: 3px; }
-#mp2 .mp2-tfcnum {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--c800);
-}
-#mp2 .mp2-spark { width: 64px; height: 24px; flex-shrink: 0; }
+<!-- Floating cart button -->
+<button id="mp2-float-cart" title="Your cart">
+  Cart
+  <span id="mp2-cart-badge"></span>
+</button>
 
-/* ── Trend indicator ── */
-#mp2 .mp2-trend {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 20px;
-  white-space: nowrap;
-  line-height: 1.5;
-}
-#mp2 .mp2-trend-up { background: #dcfce7; color: #15803d; }
-#mp2 .mp2-trend-dn { background: #fee2e2; color: #991b1b; }
-#mp2 .mp2-trend-na { color: var(--c300); font-size: 12px; }
+<!-- Cart slide panel -->
+<div id="mp2-cart-wrap">
+  <div class="mp2-cart-hdr">
+    <div class="mp2-cart-hdr-title">Your Cart</div>
+    <div class="mp2-cart-hdr-sub">Sites added this session</div>
+  </div>
+  <div id="mp2-cart-panel"></div>
+</div>
 
-/* ── Country ── */
-#mp2 .mp2-country { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-#mp2 .mp2-flag { font-size: 16px; line-height: 1; display: inline-block; }
-#mp2 .mp2-country-name { font-size: 12px; color: var(--c600); }
+<script>var MP2_CART = "{{ route('portal.cart.items.store') }}";</script>
+<script src="https://cdn.jsdelivr.net/gh/pbabakhanian/serppro-marketplace@main/marketplace-v2.js"></script>
 
-/* ── Language ── */
-#mp2 .mp2-lang-badge { font-size: 11px; color: var(--c500); white-space: nowrap; }
-
-/* ── Topics ── */
-#mp2 .mp2-tags { display: flex; flex-wrap: wrap; gap: 3px; max-width: 200px; }
-#mp2 .mp2-tag {
-  padding: 2px 8px; border-radius: 20px;
-  font-size: 11px; font-weight: 500;
-  background: var(--c100); color: var(--c600);
-  white-space: nowrap;
-}
-
-/* ── Do-Follow ── */
-#mp2 .mp2-df-y { color: var(--green); font-weight: 700; font-size: 14px; }
-#mp2 .mp2-df-n { color: var(--red); font-size: 14px; }
-#mp2 .mp2-df-u { color: var(--c300); }
-
-/* ── Price + Buy ── */
-#mp2 .mp2-price {
-  font-family: 'DM Mono', monospace;
-  font-weight: 700; font-size: 14px;
-  color: var(--c900); white-space: nowrap;
-}
-#mp2 .mp2-buy {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 0 16px; height: 30px;
-  background: var(--accent); color: white;
-  border: none; border-radius: var(--r6);
-  font-size: 12px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
-  white-space: nowrap;
-  transition: all .15s;
-  box-shadow: 0 1px 3px rgba(37,99,235,.3);
-}
-#mp2 .mp2-buy:hover { background: var(--accent-dk); box-shadow: 0 3px 8px rgba(37,99,235,.4); transform: translateY(-1px); }
-#mp2 .mp2-buy:active { transform: scale(.97) translateY(0); }
-#mp2 .mp2-buy.mp2-buy-added { background: var(--green); box-shadow: 0 1px 3px rgba(22,163,74,.3); }
-#mp2 .mp2-buy.mp2-buy-added:hover { background: #15803d; }
-
-/* ══════════════════════════════════════════
-   EXPANDED ROW DETAIL PANEL
-══════════════════════════════════════════ */
-#mp2 .mp2-detail-row > td {
-  padding: 0;
-  background: linear-gradient(to bottom, var(--accent-lt), #f8fbff);
-  border-bottom: 2px solid var(--accent);
-}
-#mp2 .mp2-detail-panel { padding: 20px 24px; }
-#mp2 .mp2-dp-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-@media (max-width: 768px) { #mp2 .mp2-dp-grid { grid-template-columns: 1fr; } }
-#mp2 .mp2-dp-section {
-  background: white;
-  border: 1px solid var(--c200);
-  border-radius: var(--r8);
-  padding: 16px;
-  box-shadow: var(--sh1);
-}
-#mp2 .mp2-dp-title {
-  font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .07em;
-  color: var(--c500); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-#mp2 .mp2-dp-stats {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 10px; margin-bottom: 14px;
-}
-#mp2 .mp2-dp-stat {
-  text-align: center;
-  padding: 10px 8px;
-  background: var(--c50);
-  border-radius: var(--r6);
-  border: 1px solid var(--c100);
-}
-#mp2 .mp2-dp-sval {
-  font-family: 'DM Mono', monospace;
-  font-size: 20px; font-weight: 700;
-  color: var(--c900); line-height: 1.1;
-}
-#mp2 .mp2-dp-slbl {
-  font-size: 9px; text-transform: uppercase;
-  letter-spacing: .07em; color: var(--c400);
-  margin-top: 4px; font-weight: 600;
-}
-#mp2 .mp2-dp-meta-row {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  padding-top: 12px; border-top: 1px solid var(--c100);
-}
-#mp2 .mp2-dp-meta-item { font-size: 12px; color: var(--c600); }
-#mp2 .mp2-dp-meta-item b { color: var(--c900); font-weight: 600; }
-#mp2 .mp2-dp-actions { display: flex; align-items: center; gap: 10px; }
-#mp2 .mp2-dp-buy { height: 36px; padding: 0 20px; font-size: 13px; }
-#mp2 .mp2-dp-visit {
-  display: inline-flex; align-items: center; height: 36px;
-  padding: 0 16px; border: 1.5px solid var(--c200);
-  border-radius: var(--r6); font-size: 13px;
-  color: var(--c600); text-decoration: none;
-  transition: all .15s; font-weight: 500;
-}
-#mp2 .mp2-dp-visit:hover { border-color: var(--accent); color: var(--accent); }
-
-/* Live data */
-#mp2 .mp2-live-badge {
-  font-size: 9px; font-weight: 700;
-  padding: 2px 7px; background: #dcfce7;
-  color: var(--green); border-radius: 20px;
-  text-transform: uppercase; letter-spacing: .06em;
-}
-#mp2 .mp2-live-wrap { display: flex; flex-direction: column; gap: 8px; }
-#mp2 .mp2-live-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  height: 34px; padding: 0 16px;
-  background: var(--c900); color: white;
-  border: none; border-radius: var(--r6);
-  font-size: 12px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
-  transition: background .15s; width: fit-content;
-}
-#mp2 .mp2-live-btn:hover { background: var(--c700); }
-#mp2 .mp2-live-hint { font-size: 11px; color: var(--c400); }
-#mp2 .mp2-live-loading { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--c500); padding: 8px 0; }
-#mp2 .mp2-live-data { display: flex; gap: 20px; flex-wrap: wrap; padding: 14px 16px; background: var(--c50); border-radius: var(--r6); border: 1px solid var(--c100); }
-#mp2 .mp2-live-stat { text-align: center; }
-#mp2 .mp2-live-val { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 700; color: var(--c900); }
-#mp2 .mp2-live-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: var(--c400); margin-top: 4px; font-weight: 600; }
-#mp2 .mp2-live-src { font-size: 10px; color: var(--green); font-weight: 600; align-self: flex-end; }
-#mp2 .mp2-live-err { font-size: 12px; color: var(--red); padding: 8px 0; }
-
-/* Spinner */
-#mp2 .mp2-spinner {
-  width: 14px; height: 14px;
-  border: 2px solid var(--c200);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: mp2spin .6s linear infinite;
-  flex-shrink: 0;
-}
-@keyframes mp2spin { to { transform: rotate(360deg); } }
-
-/* ══════════════════════════════════════════
-   AI LINK MATCHER
-══════════════════════════════════════════ */
-#mp2 .mp2-matcher-section {
-  margin-top: 32px;
-  border: 2px solid var(--accent);
-  border-radius: var(--r12);
-  padding: 28px;
-  background: linear-gradient(135deg, #eff6ff 0%, #f8faff 50%, white 100%);
-  box-shadow: 0 4px 24px rgba(37,99,235,.1);
-  position: relative;
-  overflow: hidden;
-}
-#mp2 .mp2-matcher-section::before {
-  content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 160px; height: 160px;
-  background: radial-gradient(circle, rgba(37,99,235,.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-#mp2 .mp2-matcher-hdr {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
-}
-#mp2 .mp2-matcher-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 12px; background: var(--accent);
-  color: white; border-radius: 20px; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .07em;
-}
-#mp2 .mp2-matcher-title {
-  font-size: 20px; font-weight: 700; color: var(--c900); letter-spacing: -.01em;
-}
-#mp2 .mp2-matcher-sub {
-  font-size: 13px; color: var(--c500); margin-bottom: 18px; line-height: 1.6;
-  max-width: 600px;
-}
-#mp2 .mp2-matcher-input-row { display: flex; gap: 10px; flex-wrap: wrap; }
-#mp2 .mp2-matcher-inp {
-  flex: 1; min-width: 260px; height: 42px; padding: 0 14px;
-  border: 2px solid var(--c200); border-radius: var(--r8);
-  font-size: 14px; font-family: inherit; outline: none;
-  background: white;
-  transition: border-color .15s, box-shadow .15s;
-}
-#mp2 .mp2-matcher-inp:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-lt); }
-#mp2 .mp2-matcher-inp::placeholder { color: var(--c400); }
-#mp2 .mp2-matcher-btn {
-  height: 42px; padding: 0 24px;
-  background: var(--accent); color: white;
-  border: none; border-radius: var(--r8);
-  font-size: 14px; font-weight: 600; cursor: pointer;
-  font-family: inherit; white-space: nowrap;
-  transition: all .15s;
-  box-shadow: 0 2px 8px rgba(37,99,235,.3);
-}
-#mp2 .mp2-matcher-btn:hover { background: var(--accent-dk); box-shadow: 0 4px 12px rgba(37,99,235,.4); transform: translateY(-1px); }
-#mp2 #mp2-matcher-out { margin-top: 22px; }
-#mp2 .mp2-match-loading { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--c500); padding: 16px 0; }
-#mp2 .mp2-match-summary { padding: 14px 18px; background: var(--accent); color: white; border-radius: var(--r8) var(--r8) 0 0; }
-#mp2 .mp2-match-title { font-size: 14px; font-weight: 600; }
-#mp2 .mp2-match-title a { color: white; opacity: .9; }
-#mp2 .mp2-match-meta { font-size: 12px; opacity: .8; margin-top: 4px; }
-#mp2 .mp2-match-list { border: 1px solid var(--c200); border-top: none; border-radius: 0 0 var(--r8) var(--r8); overflow: hidden; background: white; }
-#mp2 .mp2-match-row { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--c100); flex-wrap: wrap; transition: background .1s; }
-#mp2 .mp2-match-row:last-child { border-bottom: none; }
-#mp2 .mp2-match-row:hover { background: var(--c50); }
-#mp2 .mp2-match-rank { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; color: var(--c400); min-width: 24px; }
-#mp2 .mp2-match-score-bar { width: 64px; height: 6px; background: var(--c100); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
-#mp2 .mp2-match-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--accent)); border-radius: 3px; }
-#mp2 .mp2-match-score-val { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent); min-width: 32px; }
-#mp2 .mp2-match-info { flex: 1; min-width: 140px; }
-#mp2 .mp2-match-domain { font-weight: 700; font-size: 13px; color: var(--c900); display: flex; align-items: center; gap: 6px; }
-#mp2 .mp2-match-flag { font-size: 15px; }
-#mp2 .mp2-match-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; }
-#mp2 .mp2-match-metrics { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-#mp2 .mp2-match-tfc { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--c500); }
-#mp2 .mp2-match-price { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700; color: var(--c900); min-width: 64px; text-align: right; }
-#mp2 .mp2-match-buy { height: 28px; padding: 0 13px; font-size: 11px; }
-#mp2 .mp2-match-empty { text-align: center; padding: 32px; color: var(--c400); font-size: 13px; }
-#mp2 .mp2-match-err { padding: 16px; color: var(--red); font-size: 13px; }
-
-/* ══════════════════════════════════════════
-   PAGINATION
-══════════════════════════════════════════ */
-#mp2 .mp2-pager { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 18px; flex-wrap: wrap; }
-#mp2 .mp2-pg {
-  min-width: 34px; height: 34px; padding: 0 10px;
-  border: 1.5px solid var(--c200); border-radius: var(--r6);
-  background: white; font-size: 13px; font-weight: 500;
-  cursor: pointer; font-family: inherit; color: var(--c700);
-  transition: all .15s;
-}
-#mp2 .mp2-pg:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-#mp2 .mp2-pg.on { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 2px 6px rgba(37,99,235,.3); }
-#mp2 .mp2-pg:disabled { opacity: .3; cursor: not-allowed; }
-#mp2 .mp2-pgdots { padding: 0 4px; color: var(--c400); line-height: 34px; }
-
-/* Empty state */
-#mp2 .mp2-empty { text-align: center; padding: 60px 20px; color: var(--c400); }
-#mp2 .mp2-empty-ico { font-size: 44px; margin-bottom: 12px; opacity: .6; }
-#mp2 .mp2-empty-txt { font-size: 14px; }
-
-/* ══════════════════════════════════════════
-   FLOATING CART
-══════════════════════════════════════════ */
-#mp2-float-cart {
-  position: fixed; bottom: 28px; right: 28px; z-index: 1000;
-  width: 54px; height: 54px; border-radius: 50%;
-  background: var(--accent); border: none; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(37,99,235,.45);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; color: white;
-  transition: transform .2s, box-shadow .2s;
-}
-#mp2-float-cart:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,99,235,.55); }
-#mp2-cart-badge {
-  position: absolute; top: -5px; right: -5px;
-  min-width: 20px; height: 20px; padding: 0 5px;
-  border-radius: 10px; background: var(--red);
-  color: white; font-size: 10px; font-weight: 700;
-  display: none; align-items: center; justify-content: center;
-  border: 2px solid white;
-  font-family: 'DM Mono', monospace;
-}
-#mp2-cart-wrap {
-  position: fixed; bottom: 94px; right: 28px; z-index: 999;
-  width: 340px; background: white;
-  border: 1.5px solid var(--c200); border-radius: var(--r12);
-  box-shadow: var(--sh3);
-  transform: translateY(14px) scale(.96);
-  opacity: 0; pointer-events: none;
-  transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s ease;
-  display: flex; flex-direction: column; max-height: 520px; overflow: hidden;
-}
-#mp2-cart-wrap.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
-.mp2-cart-hdr {
-  padding: 14px 16px 12px;
-  border-bottom: 1px solid var(--c100);
-  background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
-}
-.mp2-cart-hdr-title { font-size: 14px; font-weight: 700; color: white; }
-.mp2-cart-hdr-sub { font-size: 11px; color: rgba(255,255,255,.7); margin-top: 2px; }
-#mp2-cart-panel { flex: 1; overflow-y: auto; }
-.mp2-cart-empty { padding: 36px 16px; text-align: center; color: var(--c400); font-size: 13px; line-height: 1.7; }
-.mp2-cart-items { padding: 6px 0; }
-.mp2-cart-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px; gap: 8px; transition: background .1s; }
-.mp2-cart-row:hover { background: var(--c50); }
-.mp2-cart-name { font-size: 12px; font-weight: 500; color: var(--c900); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.mp2-cart-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.mp2-cart-price { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 600; color: var(--c700); }
-.mp2-cart-rm { background: none; border: none; cursor: pointer; color: var(--c300); font-size: 13px; padding: 2px 5px; border-radius: 4px; transition: color .15s; }
-.mp2-cart-rm:hover { color: var(--red); background: var(--red-lt); }
-.mp2-cart-footer { padding: 14px 16px; border-top: 1px solid var(--c100); display: flex; flex-direction: column; gap: 8px; background: var(--c50); }
-.mp2-cart-total { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: var(--c900); }
-.mp2-cart-checkout { display: block; text-align: center; padding: 10px; background: var(--accent); color: white; border-radius: var(--r8); font-size: 13px; font-weight: 600; text-decoration: none; transition: all .15s; box-shadow: 0 2px 6px rgba(37,99,235,.3); }
-.mp2-cart-checkout:hover { background: var(--accent-dk); }
-.mp2-cart-viewlink { display: block; text-align: center; font-size: 12px; color: var(--c500); text-decoration: none; }
-.mp2-cart-viewlink:hover { color: var(--accent); text-decoration: underline; }
+{% endblock %}
