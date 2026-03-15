@@ -1,0 +1,152 @@
+{% extends "portal.layouts.main" %}
+{% block content %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/pbabakhanian/serppro-marketplace/main/marketplace-v2.css">
+
+<div id="mp2">
+
+  <div class="mp2-hdr">
+    <div>
+      <h1>Publisher Marketplace</h1>
+      <div class="mp2-hdr-sub">Private inventory. Vetted sites. Guaranteed placements.</div>
+    </div>
+    <div class="mp2-hdr-stats">
+      <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-loaded">0</div><div class="mp2-stat-lbl">Sites loaded</div></div>
+      <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-match">0</div><div class="mp2-stat-lbl">Matching</div></div>
+    </div>
+  </div>
+
+  <div class="mp2-progress" id="mp2-progress"><div class="mp2-progress-fill" id="mp2-prog-fill"></div></div>
+
+  <div class="mp2-filters" id="mp2-filters">
+    <div class="mp2-fg" style="flex:1;min-width:150px;max-width:240px;">
+      <div class="mp2-flabel">Search Domain</div>
+      <input class="mp2-input" id="mp2-q" type="search" placeholder="e.g. healthline.com" style="width:100%">
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">DR</div>
+      <div class="mp2-rpair">
+        <input class="mp2-input" id="mp2-dr0" type="number" placeholder="0" min="0" max="100">
+        <span class="mp2-rsep">–</span>
+        <input class="mp2-input" id="mp2-dr1" type="number" placeholder="100" min="0" max="100">
+      </div>
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Traffic</div>
+      <div class="mp2-rpair">
+        <input class="mp2-input" id="mp2-tr0" type="number" placeholder="0" min="0" style="width:76px">
+        <span class="mp2-rsep">–</span>
+        <input class="mp2-input" id="mp2-tr1" type="number" placeholder="∞" min="0" style="width:76px">
+      </div>
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Price ($)</div>
+      <div class="mp2-rpair">
+        <input class="mp2-input" id="mp2-pr0" type="number" placeholder="0" min="0" style="width:68px">
+        <span class="mp2-rsep">–</span>
+        <input class="mp2-input" id="mp2-pr1" type="number" placeholder="∞" min="0" style="width:68px">
+      </div>
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Niche / Topics</div>
+      <input class="mp2-input" id="mp2-topics" type="text" placeholder="Health, Finance, Tech…" style="width:175px">
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Do-Follow</div>
+      <select class="mp2-select" id="mp2-df">
+        <option value="">All</option>
+        <option value="Yes">Yes only</option>
+        <option value="No">No only</option>
+      </select>
+    </div>
+    <div class="mp2-fg mp2-disabled">
+      <div class="mp2-flabel">Country</div>
+      <select class="mp2-select" id="mp2-country" disabled>
+        <option value="">All</option>
+        <option>US</option><option>UK</option><option>AU</option><option>CA</option><option>DE</option>
+      </select>
+    </div>
+    <div class="mp2-fg mp2-disabled">
+      <div class="mp2-flabel">Language</div>
+      <select class="mp2-select" id="mp2-lang" disabled>
+        <option value="">All</option>
+        <option>English</option><option>Spanish</option><option>French</option><option>German</option>
+      </select>
+    </div>
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Sensitive</div>
+      <div class="mp2-trow">
+        <label class="mp2-tog"><input type="checkbox" id="mp2-hide-sens"><span class="mp2-tog-track"></span></label>
+        <span class="mp2-tlbl">Hide adult / gambling</span>
+      </div>
+    </div>
+    <div class="mp2-fg" style="justify-content:flex-end;">
+      <div class="mp2-flabel">&nbsp;</div>
+      <button class="mp2-clear-btn" id="mp2-clear">Clear all</button>
+    </div>
+  </div>
+
+  <div class="mp2-presets-row">
+    <span class="mp2-presets-lbl">Presets:</span>
+    <div id="mp2-preset-list"></div>
+    <button class="mp2-save-btn" id="mp2-save-preset">+ Save current</button>
+  </div>
+
+  <div class="mp2-tcontrols">
+    <div class="mp2-rcount">Showing <b id="mp2-from">0</b>–<b id="mp2-to">0</b> of <b id="mp2-tot">0</b> sites</div>
+    <div class="mp2-tright">
+      <select class="mp2-rpp" id="mp2-rpp">
+        <option value="25">25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+      </select>
+      <div class="mp2-colwrap">
+        <button class="mp2-colbtn" id="mp2-colbtn">⊞ Columns</button>
+        <div class="mp2-colpanel" id="mp2-colpanel">
+          <label><input type="checkbox" data-col="dr" checked> DR</label>
+          <label><input type="checkbox" data-col="da" checked> DA</label>
+          <label><input type="checkbox" data-col="traffic" checked> Traffic</label>
+          <label><input type="checkbox" data-col="spark" checked> Trend chart</label>
+          <label><input type="checkbox" data-col="topics" checked> Topics</label>
+          <label><input type="checkbox" data-col="df" checked> Do-Follow</label>
+          <label><input type="checkbox" data-col="price" checked> Price</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mp2-twrap">
+    <table>
+      <thead>
+        <tr id="mp2-head">
+          <th class="mp2-nosort" style="width:46px;"></th>
+          <th data-sort="name">Domain <span class="mp2-sico">↕</span></th>
+          <th data-sort="dr"   class="c-dr">DR <span class="mp2-sico">↕</span></th>
+          <th data-sort="da"   class="c-da">DA <span class="mp2-sico">↕</span></th>
+          <th data-sort="tfc"  class="c-traffic">Traffic <span class="mp2-sico">↕</span></th>
+          <th class="mp2-nosort c-spark">Trend</th>
+          <th class="mp2-nosort c-topics">Topics</th>
+          <th data-sort="df"   class="c-df">Do-Follow <span class="mp2-sico">↕</span></th>
+          <th data-sort="price" class="c-price mp2-sorted">Price <span class="mp2-sico">↓</span></th>
+          <th class="mp2-nosort" style="width:88px;"></th>
+        </tr>
+      </thead>
+      <tbody id="mp2-body">
+        <tr><td colspan="10" class="mp2-empty">
+          <div class="mp2-empty-ico">⏳</div>
+          <div class="mp2-empty-txt">Loading publisher inventory…</div>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mp2-pager" id="mp2-pager"></div>
+
+</div>
+
+<script>var MP2_CART = "{{ route('portal.cart.items.store') }}";</script>
+<script src="https://raw.githubusercontent.com/pbabakhanian/serppro-marketplace/main/marketplace-v2.js"></script>
+
+{% endblock %}
