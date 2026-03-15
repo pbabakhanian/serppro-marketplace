@@ -2,37 +2,48 @@
 {% block content %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pbabakhanian/serppro-marketplace@main/marketplace-v2.css">
 
 <div id="mp2">
 
+  <!-- Header -->
   <div class="mp2-hdr">
     <div>
       <h1>Publisher Marketplace</h1>
-      <div class="mp2-hdr-sub">Private inventory. Vetted sites. Guaranteed placements.</div>
+      <div class="mp2-hdr-sub">Private inventory. 9,000+ vetted sites. Guaranteed placements.</div>
     </div>
-    <div class="mp2-hdr-stats">
-      <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-loaded">0</div><div class="mp2-stat-lbl">Sites loaded</div></div>
-      <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-match">0</div><div class="mp2-stat-lbl">Matching</div></div>
+    <div class="mp2-hdr-right">
+      <div class="mp2-hdr-stats">
+        <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-loaded">0</div><div class="mp2-stat-lbl">Sites loaded</div></div>
+        <div class="mp2-stat"><div class="mp2-stat-val" id="mp2-cnt-match">0</div><div class="mp2-stat-lbl">Matching</div></div>
+      </div>
+      <button class="mp2-hdr-cart" id="mp2-hdr-cart">
+        🛒 Cart <span id="mp2-hdr-cart-badge"></span>
+      </button>
     </div>
   </div>
 
+  <!-- Progress bar -->
   <div class="mp2-progress" id="mp2-progress"><div class="mp2-progress-fill" id="mp2-prog-fill"></div></div>
 
+  <!-- Filters -->
   <div class="mp2-filters" id="mp2-filters">
-    <div class="mp2-fg" style="flex:1;min-width:150px;max-width:240px;">
+
+    <div class="mp2-fg" style="flex:1;min-width:150px;max-width:220px;">
       <div class="mp2-flabel">Search Domain</div>
       <input class="mp2-input" id="mp2-q" type="search" placeholder="e.g. healthline.com" style="width:100%">
     </div>
+
     <div class="mp2-fg">
-      <div class="mp2-flabel">DR</div>
+      <div class="mp2-flabel">DR Range</div>
       <div class="mp2-rpair">
         <input class="mp2-input" id="mp2-dr0" type="number" placeholder="0" min="0" max="100">
         <span class="mp2-rsep">–</span>
         <input class="mp2-input" id="mp2-dr1" type="number" placeholder="100" min="0" max="100">
       </div>
     </div>
+
     <div class="mp2-fg">
       <div class="mp2-flabel">Traffic</div>
       <div class="mp2-rpair">
@@ -41,6 +52,7 @@
         <input class="mp2-input" id="mp2-tr1" type="number" placeholder="∞" min="0" style="width:76px">
       </div>
     </div>
+
     <div class="mp2-fg">
       <div class="mp2-flabel">Price ($)</div>
       <div class="mp2-rpair">
@@ -49,10 +61,15 @@
         <input class="mp2-input" id="mp2-pr1" type="number" placeholder="∞" min="0" style="width:68px">
       </div>
     </div>
-    <div class="mp2-fg">
-      <div class="mp2-flabel">Niche / Topics</div>
-      <input class="mp2-input" id="mp2-topics" type="text" placeholder="Health, Finance, Tech…" style="width:175px">
+
+    <div class="mp2-fg" style="flex:1;min-width:180px;">
+      <div class="mp2-flabel">Niches / Topics <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-400)">(Enter or , to add)</span></div>
+      <div class="mp2-topic-wrap" onclick="document.getElementById('mp2-topics').focus()">
+        <div id="mp2-tag-pills"></div>
+        <input id="mp2-topics" type="text" placeholder="health, finance, tech…">
+      </div>
     </div>
+
     <div class="mp2-fg">
       <div class="mp2-flabel">Do-Follow</div>
       <select class="mp2-select" id="mp2-df">
@@ -61,20 +78,34 @@
         <option value="No">No only</option>
       </select>
     </div>
-    <div class="mp2-fg mp2-disabled">
-      <div class="mp2-flabel">Country</div>
-      <select class="mp2-select" id="mp2-country" disabled>
-        <option value="">All</option>
-        <option>US</option><option>UK</option><option>AU</option><option>CA</option><option>DE</option>
-      </select>
-    </div>
-    <div class="mp2-fg mp2-disabled">
+
+    <div class="mp2-fg">
       <div class="mp2-flabel">Language</div>
-      <select class="mp2-select" id="mp2-lang" disabled>
+      <select class="mp2-select" id="mp2-lang">
         <option value="">All</option>
-        <option>English</option><option>Spanish</option><option>French</option><option>German</option>
+        <option>English</option><option>German</option><option>French</option><option>Spanish</option>
+        <option>Italian</option><option>Dutch</option><option>Polish</option><option>Portuguese</option>
+        <option>Russian</option><option>Swedish</option><option>Norwegian</option><option>Danish</option>
+        <option>Finnish</option><option>Greek</option><option>Romanian</option><option>Turkish</option>
+        <option>Japanese</option><option>Chinese</option><option>Korean</option><option>Arabic</option>
+        <option>Indonesian</option><option>Vietnamese</option><option>Ukrainian</option>
       </select>
     </div>
+
+    <div class="mp2-fg">
+      <div class="mp2-flabel">Country</div>
+      <select class="mp2-select" id="mp2-country">
+        <option value="">All</option>
+        <option>United States</option><option>United Kingdom</option><option>Australia</option>
+        <option>Canada</option><option>Germany</option><option>France</option><option>Spain</option>
+        <option>Italy</option><option>Netherlands</option><option>Poland</option><option>Brazil</option>
+        <option>Russia</option><option>Sweden</option><option>Norway</option><option>Denmark</option>
+        <option>Finland</option><option>Greece</option><option>Romania</option><option>Turkey</option>
+        <option>Japan</option><option>China</option><option>South Korea</option><option>India</option>
+        <option>South Africa</option><option>Nigeria</option><option>Singapore</option>
+      </select>
+    </div>
+
     <div class="mp2-fg">
       <div class="mp2-flabel">Sensitive</div>
       <div class="mp2-trow">
@@ -82,18 +113,22 @@
         <span class="mp2-tlbl">Hide adult / gambling</span>
       </div>
     </div>
+
     <div class="mp2-fg" style="justify-content:flex-end;">
       <div class="mp2-flabel">&nbsp;</div>
-      <button class="mp2-clear-btn" id="mp2-clear">Clear all</button>
+      <button class="mp2-clear-btn" id="mp2-clear">✕ Clear all</button>
     </div>
+
   </div>
 
+  <!-- Presets -->
   <div class="mp2-presets-row">
     <span class="mp2-presets-lbl">Presets:</span>
     <div id="mp2-preset-list"></div>
     <button class="mp2-save-btn" id="mp2-save-preset">+ Save current</button>
   </div>
 
+  <!-- Table controls -->
   <div class="mp2-tcontrols">
     <div class="mp2-rcount">Showing <b id="mp2-from">0</b>–<b id="mp2-to">0</b> of <b id="mp2-tot">0</b> sites</div>
     <div class="mp2-tright">
@@ -102,13 +137,15 @@
         <option value="50">50 / page</option>
         <option value="100">100 / page</option>
       </select>
-      <div class="mp2-colwrap">
+      <div id="mp2-colwrap">
         <button class="mp2-colbtn" id="mp2-colbtn">⊞ Columns</button>
         <div class="mp2-colpanel" id="mp2-colpanel">
           <label><input type="checkbox" data-col="dr" checked> DR</label>
           <label><input type="checkbox" data-col="da" checked> DA</label>
-          <label><input type="checkbox" data-col="traffic" checked> Traffic</label>
+          <label><input type="checkbox" data-col="traffic" checked> Traffic + Trend</label>
           <label><input type="checkbox" data-col="spark" checked> Trend chart</label>
+          <label><input type="checkbox" data-col="country" checked> Country</label>
+          <label><input type="checkbox" data-col="lang" checked> Language</label>
           <label><input type="checkbox" data-col="topics" checked> Topics</label>
           <label><input type="checkbox" data-col="df" checked> Do-Follow</label>
           <label><input type="checkbox" data-col="price" checked> Price</label>
@@ -117,24 +154,27 @@
     </div>
   </div>
 
+  <!-- Table -->
   <div class="mp2-twrap">
     <table>
       <thead>
         <tr id="mp2-head">
           <th class="mp2-nosort" style="width:46px;"></th>
           <th data-sort="name">Domain <span class="mp2-sico">↕</span></th>
-          <th data-sort="dr"   class="c-dr">DR <span class="mp2-sico">↕</span></th>
-          <th data-sort="da"   class="c-da">DA <span class="mp2-sico">↕</span></th>
-          <th data-sort="tfc"  class="c-traffic">Traffic <span class="mp2-sico">↕</span></th>
-          <th class="mp2-nosort c-spark">Trend</th>
-          <th class="mp2-nosort c-topics">Topics</th>
-          <th data-sort="df"   class="c-df">Do-Follow <span class="mp2-sico">↕</span></th>
-          <th data-sort="price" class="c-price mp2-sorted">Price <span class="mp2-sico">↓</span></th>
-          <th class="mp2-nosort" style="width:88px;"></th>
+          <th data-sort="dr"      class="c-dr">DR <span class="mp2-sico">↕</span></th>
+          <th data-sort="da"      class="c-da">DA <span class="mp2-sico">↕</span></th>
+          <th data-sort="tfc"     class="c-traffic">Traffic / Trend <span class="mp2-sico">↕</span></th>
+          <th class="mp2-nosort c-spark">Chart</th>
+          <th data-sort="country" class="c-country">Country <span class="mp2-sico">↕</span></th>
+          <th data-sort="lang"    class="c-lang">Language <span class="mp2-sico">↕</span></th>
+          <th class="mp2-nosort  c-topics">Topics</th>
+          <th data-sort="df"      class="c-df">DF <span class="mp2-sico">↕</span></th>
+          <th data-sort="price"   class="c-price mp2-sorted">Price <span class="mp2-sico">↓</span></th>
+          <th class="mp2-nosort" style="width:90px;"></th>
         </tr>
       </thead>
       <tbody id="mp2-body">
-        <tr><td colspan="10" class="mp2-empty">
+        <tr><td colspan="12" class="mp2-empty">
           <div class="mp2-empty-ico">⏳</div>
           <div class="mp2-empty-txt">Loading publisher inventory…</div>
         </td></tr>
@@ -142,8 +182,39 @@
     </table>
   </div>
 
+  <!-- Pagination -->
   <div class="mp2-pager" id="mp2-pager"></div>
 
+  <!-- AI Link Matcher -->
+  <div class="mp2-matcher-section">
+    <div class="mp2-matcher-hdr">
+      <div class="mp2-matcher-icon">🤖</div>
+      <div class="mp2-matcher-title">AI Link Matcher</div>
+    </div>
+    <div class="mp2-matcher-sub">Paste your URL and Claude will analyze your site's topic, industry, and DR profile — then instantly match you with the most relevant publishers from our inventory.</div>
+    <div class="mp2-matcher-input-row">
+      <input class="mp2-matcher-inp" id="mp2-matcher-url" type="url" placeholder="https://yoursite.com/target-page">
+      <button class="mp2-matcher-btn" id="mp2-matcher-btn">⚡ Find Matching Sites</button>
+    </div>
+    <div id="mp2-matcher-out"></div>
+  </div>
+
+</div><!-- #mp2 -->
+
+<!-- Floating cart button -->
+<button id="mp2-float-cart" title="Cart">
+  🛒 <span id="mp2-cart-badge"></span>
+</button>
+
+<!-- Cart slide panel -->
+<div id="mp2-cart-wrap">
+  <div class="mp2-cart-hdr">
+    <div>
+      <div class="mp2-cart-hdr-title">Your Cart</div>
+      <div class="mp2-cart-hdr-sub">Sites added this session</div>
+    </div>
+  </div>
+  <div id="mp2-cart-panel"></div>
 </div>
 
 <script>var MP2_CART = "{{ route('portal.cart.items.store') }}";</script>
