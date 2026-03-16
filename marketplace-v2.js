@@ -1,8 +1,7 @@
 (function () {
   'use strict';
 
-  var API_KEY = window.MP2_KEY || 'spp_api_sz5XoYXgrPZWG14itXtfOCvxh1H4j5pI';
-  var AUTH    = 'Basic ' + btoa(API_KEY + ':');
+  // No API key needed — requests use the logged-in user's session cookie automatically
   var FOLDERS = [40, 41, 43, 47, 49];
   var SENS    = ['adult','casino','gambling','igaming','cannabis','dating','sweepstakes','xxx','sex','poker','betting'];
   var CART_URL = window.MP2_CART_URL || '/cart?folder=5&table=1';
@@ -522,7 +521,7 @@
   /* ── Data loading ── */
   async function loadFolder(fid,pg){
     var url='/api/v1/services?filters[folder_id][$eq]='+fid+'&expand[]=metadata&limit=100&page='+pg;
-    try{ var r=await fetch(url,{headers:{Authorization:AUTH}}); return await r.json(); }
+    try{ var r=await fetch(url,{credentials:'same-origin'}); return await r.json(); }
     catch(e){ return {data:[],pagination:{last_page:1}}; }
   }
   async function loadAll(){
