@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  // No API key needed — requests use the logged-in user's session cookie automatically
+  var API_KEY = window.MP2_KEY || '';
+  var AUTH    = API_KEY ? ('Basic ' + btoa(API_KEY + ':')) : null;
   var FOLDERS = [40, 41, 43, 47, 49];
   var SENS    = ['adult','casino','gambling','igaming','cannabis','dating','sweepstakes','xxx','sex','poker','betting'];
   var CART_URL = window.MP2_CART_URL || '/cart?folder=5&table=1';
@@ -123,25 +124,25 @@
     return {pct:pct,up:pct>=0,real:false};
   }
 
-  /* ── Cart — native SPP URL ── */
-  function addToCart(sid, name, price) {
-    // POST to SPP cart silently, then redirect to native cart page
-    var csrf = document.querySelector('meta[name="csrf-token"]');
-    var fd = new FormData();
-    fd.append('service_id', sid);
-    fd.append('return_url', window.location.href);
-    if (csrf) fd.append('_token', csrf.content);
+  /* ── Cart — native SPP form POST ── */
+  function addToCart(sid) {
+    // Build a real form and submit it — SPP handles redirect to cart
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = window.MP2_CART_STORE || '/portal/cart/items';
+    form.style.display = 'none';
 
-    fetch(window.MP2_CART || '/portal/cart/items', {
-      method: 'POST',
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
-      body: fd
-    }).then(function() {
-      window.location.href = CART_URL;
-    }).catch(function() {
-      // Fallback: just navigate to cart
-      window.location.href = CART_URL;
-    });
+    // CSRF token injected server-side by Twig into window.MP2_CSRF
+    var token = window.MP2_CSRF
+              || (document.querySelector('meta[name="csrf-token"]') || {}).content
+              || '';
+    if (token) { var t = document.createElement('input'); t.type='hidden'; t.name='_token'; t.value=token; form.appendChild(t); }
+
+    var s = document.createElement('input'); s.type='hidden'; s.name='service_id'; s.value=sid; form.appendChild(s);
+    var r = document.createElement('input'); r.type='hidden'; r.name='return_url'; r.value=window.MP2_CART_URL||'/cart?folder=5&table=1'; form.appendChild(r);
+
+    document.body.appendChild(form);
+    form.submit();
   }
 
   /* ── Topic tags ── */
@@ -521,7 +522,10 @@
   /* ── Data loading ── */
   async function loadFolder(fid,pg){
     var url='/api/v1/services?filters[folder_id][$eq]='+fid+'&expand[]=metadata&limit=100&page='+pg;
-    try{ var r=await fetch(url,{credentials:'same-origin'}); return await r.json(); }
+    try{
+      var opts = AUTH ? {headers:{Authorization:AUTH}} : {credentials:'same-origin'};
+      var r=await fetch(url, opts); return await r.json();
+    }
     catch(e){ return {data:[],pagination:{last_page:1}}; }
   }
   async function loadAll(){
@@ -590,7 +594,7 @@
       var live=e.target.closest('.mp2-live-btn');
       if(live){ fetchLiveData(live.dataset.domain,live.dataset.target); return; }
       var buy=e.target.closest('.mp2-buy');
-      if(buy){ addToCart(buy.dataset.id,buy.dataset.name,buy.dataset.price); return; }
+      if(buy){ addToCart(buy.dataset.id); return; }
       var fav=e.target.closest('.mp2-fav');
       if(fav){ var sid2=fav.dataset.id; favs[sid2]?delete favs[sid2]:(favs[sid2]=1); sv('mp2_favs',favs); fav.classList.toggle('on'); return; }
       var blk=e.target.closest('.mp2-blk');
