@@ -1,8 +1,10 @@
 (function () {
   'use strict';
 
-  var API_KEY = window.MP2_KEY || '';
-  var AUTH    = API_KEY ? ('Basic ' + btoa(API_KEY + ':')) : null;
+  function getAuth(){
+    var k = window.MP2_KEY || '';
+    return k ? ('Basic ' + btoa(k + ':')) : null;
+  }
   var FOLDERS = [40, 41, 43, 47, 49];
   var SENS    = ['adult','casino','gambling','igaming','cannabis','dating','sweepstakes','xxx','sex','poker','betting'];
   var CART_URL = window.MP2_CART_URL || '/cart?folder=5&table=1';
@@ -523,7 +525,8 @@
   async function loadFolder(fid,pg){
     var url='/api/v1/services?filters[folder_id][$eq]='+fid+'&expand[]=metadata&limit=100&page='+pg;
     try{
-      var opts = AUTH ? {headers:{Authorization:AUTH}} : {credentials:'same-origin'};
+      var auth = getAuth();
+      var opts = auth ? {headers:{Authorization:auth}} : {credentials:'same-origin'};
       var r=await fetch(url, opts); return await r.json();
     }
     catch(e){ return {data:[],pagination:{last_page:1}}; }
